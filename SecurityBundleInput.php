@@ -62,6 +62,14 @@ class SBInput
     protected $email;
 
 
+    /** The date instance.
+     *
+     *
+     * @var date
+     */
+    protected $date;
+
+
     /*
      * Sets $regex to a remove addition characters in  class instantiation
      * 
@@ -122,6 +130,16 @@ class SBInput
         $pr = preg_replace('/[a-zA-Z!@#$%^&*()_+=<;>;?]/', "", $pr);
 
         return $pr;
+    }
+
+
+    /**
+     * @param $dateRegex
+     * @return mixed
+     */
+    protected function DateRegex($dateRegex)
+    {
+        return preg_replace('/\d{2}\/\d{2}\/\d{4}/', "", $dateRegex);
     }
 
 
@@ -329,5 +347,24 @@ class SBInput
         return $this->decimal;
     }
 
+
+    /**
+     * @param $date
+     */
+    private function setDate($date)
+    {
+        $this->date = $this->DateRegex($date);
+    }
+
+
+    /**
+     * @param $date
+     * @return date
+     */
+    public function getDate($date)
+    {
+        $this->setDate($date);
+        return $this->date;
+    }
 
 }
